@@ -1,4 +1,5 @@
 import { CalProvider } from '@/components/CalProvider';
+import { StructuredData } from '@/components/StructuredData';
 import { Navbar } from '@/components/sections/Navbar';
 import { Hero } from '@/components/sections/Hero';
 import { MetiersMarquee } from '@/components/sections/MetiersMarquee';
@@ -11,6 +12,9 @@ import { FooterCTA } from '@/components/sections/FooterCTA';
 export default function Home() {
   return (
     <main className="relative min-h-screen bg-[#FCFCFD] text-zinc-950 font-sans selection:bg-indigo-500 selection:text-white">
+      {/* Balisage JSON-LD : FAQPage + identité de l'entreprise */}
+      <StructuredData />
+
       {/* Initialise le widget Cal.com pour tous les CTA de la page */}
       <CalProvider />
 

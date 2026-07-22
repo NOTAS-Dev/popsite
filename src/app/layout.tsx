@@ -15,8 +15,9 @@ const inter = Inter({
 });
 
 const title = "Popsite — Création de site web pour tous les métiers";
+// 155 caractères : au-delà de ~160, Google tronque la description dans les résultats.
 const description =
-  "Popsite crée des sites web sur-mesure pour tous les corps de métier : artisans, commerçants, restaurants, professions libérales, entreprises. Réservation en ligne, paiement, galeries, référencement SEO.";
+  "Sites web sur-mesure pour tous les métiers : artisans, commerçants, restaurants, professions libérales. Réservation, paiement, SEO. Appel offert 15 min.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.popsite.fr"),
