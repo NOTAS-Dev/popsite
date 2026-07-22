@@ -6,17 +6,17 @@ import { cn } from '@/lib/utils';
 import { CAL_LINK, CAL_URL, DEVIS_LINK } from '@/config/site';
 
 const base =
-  'inline-flex items-center justify-center gap-2 font-semibold rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 active:scale-[0.98] cursor-pointer';
+  'inline-flex items-center justify-center gap-2 font-medium rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 active:scale-[0.98] cursor-pointer';
 
 const styles = {
   primary:
-    'bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/40 hover:-translate-y-0.5',
+    'bg-zinc-950 text-white hover:bg-zinc-800 shadow-md shadow-zinc-950/10',
   outline:
-    'bg-white/80 backdrop-blur-md border border-zinc-200/90 text-zinc-900 hover:bg-white hover:border-zinc-300 shadow-sm hover:shadow-md hover:-translate-y-0.5',
+    'bg-white border border-zinc-200 text-zinc-800 hover:bg-zinc-50 hover:border-zinc-300 shadow-xs',
   light:
-    'bg-white text-zinc-950 shadow-lg hover:shadow-2xl hover:-translate-y-0.5 border border-zinc-200/60',
+    'bg-white text-zinc-950 hover:bg-zinc-100 border border-zinc-200/80 shadow-xs font-semibold',
   ghostDark:
-    'bg-white/5 backdrop-blur-md border border-white/20 text-white hover:bg-white/10 hover:border-white/30 hover:-translate-y-0.5',
+    'bg-white/10 backdrop-blur-md border border-white/15 text-white hover:bg-white/20',
 };
 
 const sizes = {
@@ -28,11 +28,6 @@ const sizes = {
 type Variant = keyof typeof styles;
 type Size = keyof typeof sizes;
 
-/**
- * CTA « Réserver un appel ».
- * Ouvre la popup Cal.com si le widget est chargé (voir CalProvider),
- * sinon le lien ouvre simplement cal.com dans un nouvel onglet.
- */
 export function BookCallButton({
   children = 'Réserver un appel',
   variant = 'primary',
@@ -62,7 +57,6 @@ export function BookCallButton({
   );
 }
 
-/** CTA secondaire « Demander un devis » — lien configurable via DEVIS_LINK. */
 export function DevisButton({
   children = 'Demander un devis',
   variant = 'outline',

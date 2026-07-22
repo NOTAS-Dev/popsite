@@ -67,8 +67,12 @@ export default function RootLayout({
     <html
       lang="fr"
       className={`${plusJakarta.variable} ${inter.variable} h-full antialiased scroll-smooth`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full font-sans bg-[#FCFCFD] text-zinc-950 flex flex-col selection:bg-indigo-500 selection:text-white">
+      <body
+        className="min-h-full font-sans bg-white text-zinc-950 flex flex-col selection:bg-zinc-950 selection:text-white"
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>

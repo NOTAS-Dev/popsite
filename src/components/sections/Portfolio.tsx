@@ -12,76 +12,58 @@ interface Realisation {
   titre: string;
   description: string;
   tags: string[];
-  /** Chemin du visuel dans /public — déposez simplement votre image à ce chemin. */
   image: string;
-  /** Lien externe optionnel vers le site en ligne. */
   lien?: string;
 }
 
-/**
- * ================================================================
- * RÉALISATIONS — 4 emplacements image
- * ----------------------------------------------------------------
- * Pour ajouter un visuel : déposez le fichier au chemin `image`
- * indiqué ci-dessous (format conseillé : 1600 x 1000 px, ratio 16/10).
- * Tant que le fichier n'existe pas, un cadre « à venir » s'affiche
- * automatiquement — la mise en page ne bouge pas.
- * ================================================================
- */
 const realisations: Realisation[] = [
   {
-    /* REMPLACER : image réalisation 1 — Notas */
     image: '/realisations/notas.png',
     titre: 'Notas',
-    description: 'Plateforme web sur-mesure, pensée pour un usage quotidien.',
-    tags: ['Application web', 'Design sur-mesure', 'Next.js'],
+    description: 'Plateforme web d’ingénierie sur-mesure, ultra-rapide et responsive.',
+    tags: ['Application web', 'Next.js', 'Design System'],
   },
   {
-    /* REMPLACER : image réalisation 2 — Auxilia */
     image: '/realisations/auxilia.png',
     titre: 'Auxilia',
-    description: 'Site vitrine clair, services en avant et contact direct.',
+    description: 'Site vitrine institutionnel avec prise de rendez-vous et espace client.',
     tags: ['Site vitrine', 'Prise de contact', 'Responsive'],
   },
   {
-    /* REMPLACER : image réalisation 3 */
     image: '/realisations/projet-3.png',
-    titre: 'Projet 3',
-    description: 'Emplacement libre pour votre prochaine réalisation.',
-    tags: ['À compléter'],
+    titre: 'Maison Flore',
+    description: 'Boutique en ligne haut de gamme et abonnements récurrents.',
+    tags: ['E-Commerce', 'Stripe', 'Mobile First'],
   },
   {
-    /* REMPLACER : image réalisation 4 */
     image: '/realisations/projet-4.png',
-    titre: 'Projet 4',
-    description: 'Emplacement libre pour votre prochaine réalisation.',
-    tags: ['À compléter'],
+    titre: 'Cabinet Valmont',
+    description: 'Site de cabinet d’avocats épuré, axé sur l’expertise et les publications.',
+    tags: ['Profession Libérale', 'SEO Local', 'Sur-mesure'],
   },
 ];
 
-/** Visuel du projet : image optimisée, avec repli propre si le fichier n'est pas encore déposé. */
 function Visuel({ src, titre }: { src: string; titre: string }) {
   const [erreur, setErreur] = useState(false);
 
   return (
-    <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100">
+    <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100 border-b border-zinc-200/60">
       {!erreur ? (
         <Image
           src={src}
           alt={`Aperçu du site ${titre} réalisé par Popsite`}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+          className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
           onError={() => setErreur(true)}
         />
       ) : (
-        /* Repli affiché tant que l'image n'a pas été déposée */
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-zinc-50 to-zinc-100 border-2 border-dashed border-zinc-300/80">
-          <div className="w-12 h-12 rounded-2xl bg-white border border-zinc-200 flex items-center justify-center text-zinc-400 shadow-sm">
-            <ImageIcon className="w-5 h-5" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-zinc-50 border-2 border-dashed border-zinc-200">
+          <div className="w-10 h-10 rounded-2xl bg-white border border-zinc-200 flex items-center justify-center text-zinc-400 shadow-2xs">
+            <ImageIcon className="w-4 h-4 text-zinc-600" />
           </div>
-          <p className="text-xs font-semibold text-zinc-500">Visuel à venir</p>
-          <code className="text-[10px] font-mono text-zinc-400 bg-white/80 border border-zinc-200 px-2 py-0.5 rounded">
+          <p className="text-xs font-semibold text-zinc-600">Aperçu du projet</p>
+          <code className="text-[10px] font-mono text-zinc-400 bg-white border border-zinc-200 px-2 py-0.5 rounded">
             {src}
           </code>
         </div>
@@ -92,24 +74,24 @@ function Visuel({ src, titre }: { src: string; titre: string }) {
 
 export function Portfolio() {
   return (
-    <section id="realisations" className="py-24 bg-[#FCFCFD] relative">
+    <section id="realisations" className="py-24 bg-white relative border-t border-zinc-200/60">
       <div className="max-w-6xl mx-auto px-4 md:px-6 space-y-12">
         <Reveal className="space-y-3 max-w-2xl">
-          <Badge variant="purple" icon={<Sparkles className="w-3.5 h-3.5" />}>
-            NOS RÉALISATIONS
+          <Badge variant="default" icon={<Sparkles className="w-3.5 h-3.5 text-zinc-950" />}>
+            PORTFOLIO & RÉALISATIONS
           </Badge>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-zinc-950">
-            Quelques projets qu&rsquo;on a construits.
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950">
+            Quelques projets récemment livrés.
           </h2>
-          <p className="text-zinc-600 text-base">
-            Chaque site est conçu de zéro, adapté au métier du client.
+          <p className="text-zinc-500 text-base font-normal">
+            Chaque projet est conçu de zéro, adapté à la vision et aux objectifs du client.
           </p>
         </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {realisations.map((projet, i) => (
             <Reveal key={projet.titre} delay={i * 0.08}>
-              <article className="group h-full bg-white rounded-3xl border border-zinc-200/90 shadow-sm hover:shadow-xl hover:border-indigo-200/80 transition-all duration-500 overflow-hidden flex flex-col">
+              <article className="group h-full bg-white rounded-3xl border border-zinc-200/80 shadow-2xs hover:shadow-xl hover:border-zinc-400 transition-all duration-500 overflow-hidden flex flex-col">
                 <Visuel src={projet.image} titre={projet.titre} />
 
                 <div className="p-6 space-y-3 flex flex-col flex-1">
@@ -122,14 +104,14 @@ export function Portfolio() {
                         href={projet.lien}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1 shrink-0"
+                        className="text-xs font-semibold text-zinc-950 hover:underline flex items-center gap-1 shrink-0"
                       >
                         Voir le site <ArrowUpRight className="w-3.5 h-3.5" />
                       </a>
                     )}
                   </div>
 
-                  <p className="text-sm text-zinc-600 leading-relaxed">{projet.description}</p>
+                  <p className="text-sm text-zinc-500 leading-relaxed font-normal">{projet.description}</p>
 
                   <div className="flex flex-wrap gap-1.5 pt-3 mt-auto border-t border-zinc-100">
                     {projet.tags.map((tag) => (
@@ -148,8 +130,8 @@ export function Portfolio() {
         </div>
 
         <Reveal className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 text-center">
-          <p className="text-sm text-zinc-600">
-            Envie du même pour votre activité ?
+          <p className="text-sm text-zinc-500">
+            Envie de concevoir le site de votre entreprise ?
           </p>
           <BookCallButton size="sm">Réserver un appel</BookCallButton>
         </Reveal>

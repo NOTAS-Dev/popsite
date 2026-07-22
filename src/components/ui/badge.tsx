@@ -16,18 +16,18 @@ export function Badge({
   ...props
 }: BadgeProps) {
   const base =
-    'inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full border transition-all duration-300 backdrop-blur-md';
+    'inline-flex items-center gap-1.5 px-3.5 py-1 text-[11px] font-mono tracking-wider uppercase rounded-full border transition-all duration-300 backdrop-blur-md';
 
   const variants = {
     default:
-      'bg-indigo-50/80 text-indigo-700 border-indigo-200/70 shadow-sm shadow-indigo-100/50',
+      'bg-zinc-50/80 text-zinc-600 border-zinc-200/80 shadow-xs hover:border-zinc-300',
     outline:
-      'bg-white/80 text-zinc-700 border-zinc-200/80 shadow-sm hover:border-zinc-300',
+      'bg-white/80 text-zinc-700 border-zinc-200/80 shadow-xs hover:border-zinc-300',
     purple:
-      'bg-purple-50/80 text-purple-700 border-purple-200/70 shadow-sm shadow-purple-100/50',
+      'bg-zinc-50/90 text-zinc-700 border-zinc-200/90 shadow-2xl',
     success:
-      'bg-emerald-50/80 text-emerald-700 border-emerald-200/70 shadow-sm shadow-emerald-100/50',
-    dark: 'bg-zinc-900/90 text-white border-white/10 shadow-md',
+      'bg-emerald-50/80 text-emerald-800 border-emerald-200/70 shadow-xs',
+    dark: 'bg-zinc-950 text-zinc-200 border-zinc-800 shadow-md',
   };
 
   return (
