@@ -19,7 +19,7 @@ const description =
   "Popsite crée des sites web sur-mesure pour tous les corps de métier : artisans, commerçants, restaurants, professions libérales, entreprises. Réservation en ligne, paiement, galeries, référencement SEO.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://popsite.fr"),
+  metadataBase: new URL("https://www.popsite.fr"),
   title,
   description,
   keywords: [
@@ -33,16 +33,16 @@ export const metadata: Metadata = {
     "référencement SEO local",
     "agence web France",
   ],
-  authors: [{ name: "Popsite", url: "https://popsite.fr" }],
+  authors: [{ name: "Popsite", url: "https://www.popsite.fr" }],
   creator: "Popsite",
   publisher: "Popsite",
   alternates: {
-    canonical: "https://popsite.fr",
+    canonical: "https://www.popsite.fr",
   },
   openGraph: {
     title,
     description,
-    url: "https://popsite.fr",
+    url: "https://www.popsite.fr",
     siteName: "Popsite",
     locale: "fr_FR",
     type: "website",

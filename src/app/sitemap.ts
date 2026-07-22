@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://popsite.fr';
+  const baseUrl = 'https://www.popsite.fr';
 
   return [
     {
