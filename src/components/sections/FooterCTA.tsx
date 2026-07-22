@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Reveal } from '@/components/Reveal';
 import { BookCallButton, DevisButton } from '@/components/CtaButtons';
+import { Logo } from '@/components/Logo';
 import { Sparkles, Heart, Mail, MapPin, Clock } from 'lucide-react';
 import { siteConfig, navLinks, CAL_URL } from '@/config/site';
 
@@ -60,12 +61,7 @@ export function FooterCTA() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pt-8 border-t border-white/10 text-xs text-zinc-400">
           <div className="space-y-4">
             <a href="#" className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-white text-zinc-950 flex items-center justify-center font-mono font-bold text-[10px]">
-                P
-              </div>
-              <span className="text-base font-bold tracking-tight text-white">
-                POPSITE<span className="text-zinc-500">.</span>
-              </span>
+              <Logo variant="dark" size={28} />
             </a>
             <p className="leading-relaxed">Création de sites web sur-mesure pour tous les métiers.</p>
             <span className="flex items-center gap-1.5 text-zinc-400">

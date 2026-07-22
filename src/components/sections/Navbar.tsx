@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { BookCallButton } from '@/components/CtaButtons';
+import { Logo } from '@/components/Logo';
 import { navLinks } from '@/config/site';
 
 export function Navbar() {
@@ -35,12 +36,7 @@ export function Navbar() {
               href="#"
               className="flex items-center gap-2 group transition-transform duration-300 hover:scale-[1.01]"
             >
-              <div className="w-6 h-6 rounded-full bg-zinc-950 flex items-center justify-center text-white text-[10px] font-mono font-bold shadow-xs">
-                P
-              </div>
-              <span className="text-sm font-bold tracking-tight text-zinc-950">
-                POPSITE<span className="text-zinc-400">.</span>
-              </span>
+              <Logo variant="light" size={24} />
             </a>
 
             {/* Nav links */}
