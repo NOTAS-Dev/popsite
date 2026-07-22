@@ -14,34 +14,34 @@ const inter = Inter({
   display: "swap",
 });
 
+const title = "Popsite — Création de site web pour tous les métiers";
+const description =
+  "Popsite crée des sites web sur-mesure pour tous les corps de métier : artisans, commerçants, restaurants, professions libérales, entreprises. Réservation en ligne, paiement, galeries, référencement SEO.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://popsite.fr"),
-  title: "Popsite — Sites web sur-mesure & haute performance",
-  description:
-    "Agence web nouvelle génération. Nous concevons des sites web ultra-rapides, sur-mesure et orientés conversion pour entreprises, indépendants et startups.",
+  title,
+  description,
   keywords: [
     "Popsite",
-    "Agence web",
-    "Création site internet",
-    "Landing Page haute conversion",
-    "Next.js",
-    "Tailwind CSS",
-    "Site vitrine sur-mesure",
-    "E-commerce haute performance",
-    "SEO optimisé",
+    "création site internet",
+    "site web sur-mesure",
+    "site vitrine",
+    "site web artisan",
+    "site web commerçant",
+    "site web restaurant",
+    "référencement SEO local",
+    "agence web France",
   ],
-  authors: [{ name: "Popsite Studio", url: "https://popsite.fr" }],
-  creator: "Popsite Studio",
-  publisher: "Popsite Studio",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
+  authors: [{ name: "Popsite", url: "https://popsite.fr" }],
+  creator: "Popsite",
+  publisher: "Popsite",
+  alternates: {
+    canonical: "https://popsite.fr",
   },
   openGraph: {
-    title: "Popsite — Sites web sur-mesure & haute performance",
-    description:
-      "Des expériences web d'exception conçues pour convertir vos visiteurs en clients. Délais garantis, design sur-mesure & score 100/100 Lighthouse.",
+    title,
+    description,
     url: "https://popsite.fr",
     siteName: "Popsite",
     locale: "fr_FR",
@@ -49,10 +49,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Popsite — Sites web sur-mesure & haute performance",
-    description:
-      "Des expériences web d'exception conçues pour convertir vos visiteurs en clients.",
-    creator: "@popsite_fr",
+    title,
+    description,
   },
   robots: {
     index: true,

@@ -3,89 +3,97 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { BookCallButton, DevisButton } from '@/components/CtaButtons';
 import {
   Sparkles,
-  Calendar,
-  Eye,
-  CheckCircle2,
-  TrendingUp,
-  Zap,
   Globe,
-  ArrowRight,
-  Shield,
   Layers,
+  Wrench,
+  UtensilsCrossed,
+  Stethoscope,
+  Store,
+  Scale,
 } from 'lucide-react';
-import { BookingModal } from '@/components/sections/BookingModal';
 
-interface ShowcaseItem {
+/**
+ * Aperçus illustratifs : ils montrent le type de site qu'on peut construire
+ * pour chaque métier. Aucun chiffre, aucun nom de client — ce sont des exemples de rendu.
+ */
+interface Demo {
   id: string;
-  title: string;
-  category: string;
-  metric: string;
-  speed: string;
-  gradient: string;
-  bgMockup: string;
-  features: string[];
+  metier: string;
+  icon: React.ElementType;
+  titre: string;
+  accroche: string;
+  bg: string;
+  accent: string;
+  briques: string[];
 }
 
-const showcaseItems: ShowcaseItem[] = [
+const demos: Demo[] = [
   {
-    id: 'saas',
-    title: 'NovaAI — SaaS B2B Automation',
-    category: 'SaaS Platform',
-    metric: '+340% Conversions',
-    speed: '99/100 Mobile',
-    gradient: 'from-indigo-600 via-purple-600 to-pink-500',
-    bgMockup: 'bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900',
-    features: ['Dark glass UI', 'Stripe checkout ready', 'Micro-animations'],
+    id: 'artisan',
+    metier: 'Artisan',
+    icon: Wrench,
+    titre: 'Devis en ligne et galerie de chantiers',
+    accroche: 'Vos réalisations en photo. Un bouton pour vous contacter.',
+    bg: 'bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900',
+    accent: 'from-indigo-500 to-purple-500',
+    briques: ['Galerie avant / après', 'Formulaire de devis', 'Zone d’intervention'],
   },
   {
-    id: 'luxe',
-    title: 'Maison Éthérée — Haute Horlogerie',
-    category: 'Luxe E-Commerce',
-    metric: '2.4s Temps de chargement',
-    speed: '100/100 Desktop',
-    gradient: 'from-amber-500 via-orange-500 to-rose-500',
-    bgMockup: 'bg-gradient-to-br from-stone-900 via-amber-950 to-stone-900',
-    features: ['Minimaliste 3D preview', 'Paiement Apple Pay', 'Multilingue i18n'],
+    id: 'restaurant',
+    metier: 'Restaurant',
+    icon: UtensilsCrossed,
+    titre: 'Carte, horaires et réservation de table',
+    accroche: 'Le menu toujours à jour. La réservation sur le site.',
+    bg: 'bg-gradient-to-br from-stone-900 via-amber-950 to-stone-900',
+    accent: 'from-amber-500 to-orange-500',
+    briques: ['Menu dynamique', 'Réservation en ligne', 'Google Maps'],
   },
   {
-    id: 'agency',
-    title: 'Vortex — Agence IA & Growth',
-    category: 'Site Vitrine & Lead Gen',
-    metric: '18% Taux de conversion',
-    speed: '98/100 Mobile',
-    gradient: 'from-emerald-500 via-teal-600 to-cyan-500',
-    bgMockup: 'bg-gradient-to-br from-zinc-900 via-teal-950 to-zinc-900',
-    features: ['Module de réservation calendly', 'SEO local #1', 'Design iridescent'],
+    id: 'sante',
+    metier: 'Santé',
+    icon: Stethoscope,
+    titre: 'Prise de rendez-vous et infos patients',
+    accroche: 'Un cabinet clair, rassurant, joignable en deux clics.',
+    bg: 'bg-gradient-to-br from-zinc-900 via-teal-950 to-zinc-900',
+    accent: 'from-emerald-500 to-teal-500',
+    briques: ['Agenda en ligne', 'Fiches praticiens', 'Accès et horaires'],
   },
   {
-    id: 'finance',
-    title: 'Aura Capital — Private Banking',
-    category: 'Finance & Fintech',
-    metric: '+4.8m€ de leads générés',
-    speed: '100/100 Core Web Vitals',
-    gradient: 'from-blue-600 via-indigo-600 to-violet-600',
-    bgMockup: 'bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900',
-    features: ['Sécurité certifiée RGPD', 'Animations SVG interactives', 'Support 24/7'],
+    id: 'commerce',
+    metier: 'Commerce',
+    icon: Store,
+    titre: 'Vitrine, catalogue et paiement en ligne',
+    accroche: 'Vos produits en avant. Et le bouton pour acheter.',
+    bg: 'bg-gradient-to-br from-slate-950 via-rose-950 to-zinc-900',
+    accent: 'from-rose-500 to-pink-500',
+    briques: ['Catalogue produits', 'Paiement sécurisé', 'Click & collect'],
+  },
+  {
+    id: 'liberal',
+    metier: 'Profession libérale',
+    icon: Scale,
+    titre: 'Présentation, expertises et contact',
+    accroche: 'Une image sérieuse, dès la première seconde.',
+    bg: 'bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900',
+    accent: 'from-blue-500 to-indigo-500',
+    briques: ['Domaines d’expertise', 'Prise de contact', 'Articles & actualités'],
   },
 ];
 
 export function Hero() {
-  const [selectedId, setSelectedId] = useState<string>('saas');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const activeItem = showcaseItems.find((item) => item.id === selectedId) || showcaseItems[0];
+  const [selectedId, setSelectedId] = useState<string>('artisan');
+  const active = demos.find((d) => d.id === selectedId) ?? demos[0];
 
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-grid-pattern">
-      {/* Background Ambient Glow Spheres */}
+      {/* Halos d'ambiance */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gradient-to-tr from-indigo-500/15 via-purple-500/15 to-orange-400/15 blur-[120px] rounded-full pointer-events-none -z-10" />
 
       <div className="max-w-6xl mx-auto px-4 md:px-6 text-center space-y-8">
-        {/* Top Pill Badge */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -94,185 +102,150 @@ export function Hero() {
         >
           <Badge variant="purple" className="py-1.5 px-4 text-xs font-semibold tracking-wide">
             <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse mr-1" />
-            Sites Web Haute Performance &amp; Conversion
+            Création de sites web — tous les métiers
           </Badge>
         </motion.div>
 
-        {/* H1 Main Heading */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-zinc-950 max-w-4xl mx-auto leading-[1.08]"
         >
-          Des sites web d’exception conçus pour{' '}
+          Quel que soit votre métier,{' '}
           <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-            propulser votre activité.
+            on vous crée le site qu&rsquo;il vous faut.
           </span>
         </motion.h1>
 
-        {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-base sm:text-lg md:text-xl text-zinc-600 max-w-2xl mx-auto leading-relaxed font-normal"
+          className="text-base sm:text-lg md:text-xl text-zinc-600 max-w-2xl mx-auto leading-relaxed"
         >
-          Nous créons des expériences web modernes, ultra-rapides et taillées pour convertir vos visiteurs en clients fidèles.
+          Artisan, commerçant, restaurateur, profession libérale, entreprise. Des sites rapides,
+          avec exactement ce qu&rsquo;il vous faut dedans.
         </motion.p>
 
-        {/* Double CTA Buttons */}
+        {/* CTA principal + secondaire */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2"
         >
-          <Button
-            variant="primary"
-            size="lg"
-            onClick={() => setIsModalOpen(true)}
-            className="w-full sm:w-auto shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 text-sm font-semibold rounded-full px-7 py-3.5"
-          >
-            <span className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-indigo-200" />
-              Réserver un appel (15 min)
-            </span>
-          </Button>
-
-          <a href="#portfolio" className="w-full sm:w-auto">
-            <Button
-              variant="outline"
-              size="lg"
-              className="w-full sm:w-auto rounded-full px-7 py-3.5 text-sm font-semibold border-zinc-200/90 hover:bg-zinc-50"
-            >
-              <Eye className="w-4 h-4 text-zinc-500 mr-2" />
-              Voir nos projets
-            </Button>
-          </a>
+          <BookCallButton size="lg" className="w-full sm:w-auto">
+            Réserver un appel (15 min)
+          </BookCallButton>
+          <DevisButton size="lg" className="w-full sm:w-auto" />
         </motion.div>
 
-        {/* Social Proof Trust Micro-Badges */}
-        <motion.div
+        <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex flex-wrap items-center justify-center gap-6 pt-3 text-xs font-medium text-zinc-500"
+          className="text-xs font-medium text-zinc-500"
         >
-          <span className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Livré en 7 à 14 jours
-          </span>
-          <span className="flex items-center gap-1.5">
-            <Zap className="w-4 h-4 text-amber-500" /> 100/100 Score Lighthouse
-          </span>
-          <span className="flex items-center gap-1.5">
-            <Shield className="w-4 h-4 text-indigo-500" /> Révisions illimitées
-          </span>
-        </motion.div>
+          15 minutes, sans engagement.
+        </motion.p>
 
-        {/* Interactive Hero Showcase Carousel */}
+        {/* Sélecteur de métier + maquette */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
           className="pt-10 max-w-5xl mx-auto"
         >
-          {/* Showcase Tabs */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-6 p-1.5 bg-white/80 backdrop-blur-md border border-zinc-200/80 rounded-2xl w-fit mx-auto shadow-sm">
-            {showcaseItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => setSelectedId(item.id)}
-                className={`px-4 py-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-300 ${
-                  selectedId === item.id
-                    ? 'bg-zinc-950 text-white shadow-md'
-                    : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100/80'
-                }`}
-              >
-                {item.category}
-              </button>
-            ))}
+          <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-4">
+            Un aperçu par métier
+          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-1.5 mb-6 p-1.5 bg-white/80 backdrop-blur-md border border-zinc-200/80 rounded-2xl w-fit mx-auto shadow-sm">
+            {demos.map((d) => {
+              const Icon = d.icon;
+              return (
+                <button
+                  key={d.id}
+                  onClick={() => setSelectedId(d.id)}
+                  className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-300 ${
+                    selectedId === d.id
+                      ? 'bg-zinc-950 text-white shadow-md'
+                      : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100/80'
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                  {d.metier}
+                </button>
+              );
+            })}
           </div>
 
-          {/* Browser Window Mockup */}
-          <div className="relative rounded-3xl border border-zinc-200/90 bg-white shadow-2xl overflow-hidden glass-card">
-            {/* Top Browser Bar */}
-            <div className="flex items-center justify-between px-4 py-3 bg-zinc-100/80 border-b border-zinc-200/80">
-              <div className="flex items-center gap-1.5">
+          {/* Fenêtre navigateur */}
+          <div className="relative rounded-3xl border border-zinc-200/90 bg-white shadow-2xl overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-3 bg-zinc-100/80 border-b border-zinc-200/80 gap-3">
+              <div className="flex items-center gap-1.5 shrink-0">
                 <div className="w-3 h-3 rounded-full bg-rose-400" />
                 <div className="w-3 h-3 rounded-full bg-amber-400" />
                 <div className="w-3 h-3 rounded-full bg-emerald-400" />
               </div>
-              <div className="flex items-center gap-2 px-4 py-1 rounded-full bg-white border border-zinc-200 text-[11px] font-mono text-zinc-500 shadow-inner max-w-xs w-full justify-center">
-                <Globe className="w-3 h-3 text-emerald-500" />
-                https://{activeItem.id}.popsite-demo.fr
+              <div className="flex items-center gap-2 px-4 py-1 rounded-full bg-white border border-zinc-200 text-[11px] font-mono text-zinc-500 max-w-xs w-full justify-center truncate">
+                <Globe className="w-3 h-3 text-emerald-500 shrink-0" />
+                votre-{active.id}.fr
               </div>
-              <div className="flex items-center gap-2 text-xs font-semibold text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
-                <Zap className="w-3 h-3" /> {activeItem.speed}
-              </div>
+              <span className="hidden sm:block text-[11px] font-medium text-zinc-400 shrink-0">
+                exemple de rendu
+              </span>
             </div>
 
-            {/* Mockup Canvas */}
-            <div className={`p-8 md:p-12 ${activeItem.bgMockup} text-white min-h-[380px] md:min-h-[440px] flex flex-col justify-between relative overflow-hidden transition-all duration-500`}>
-              {/* Background Geometric Accents */}
-              <div className="absolute -right-20 -top-20 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute -left-20 -bottom-20 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35 }}
+                className={`p-8 md:p-12 ${active.bg} text-white min-h-[340px] md:min-h-[400px] flex flex-col justify-between relative overflow-hidden`}
+              >
+                <div className="absolute -right-20 -top-20 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute -left-20 -bottom-20 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
 
-              {/* Showcase Top Bar inside mockup */}
-              <div className="flex items-center justify-between z-10">
-                <div className="flex items-center gap-2">
-                  <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${activeItem.gradient}`} />
+                <div className="flex items-center gap-2 z-10">
+                  <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${active.accent}`} />
                   <span className="text-xs font-mono tracking-wider text-zinc-400 uppercase">
-                    {activeItem.category}
+                    {active.metier}
                   </span>
                 </div>
-                <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/15 text-xs font-semibold text-emerald-400">
-                  <TrendingUp className="w-3.5 h-3.5" />
-                  {activeItem.metric}
+
+                <div className="my-8 text-left space-y-4 max-w-xl z-10">
+                  <h3 className="text-2xl md:text-4xl font-extrabold tracking-tight text-white leading-tight">
+                    {active.titre}
+                  </h3>
+                  <p className="text-zinc-300 text-sm leading-relaxed">{active.accroche}</p>
+
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {active.briques.map((b) => (
+                      <span
+                        key={b}
+                        className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-white/10 text-white border border-white/10 flex items-center gap-1"
+                      >
+                        <Layers className="w-3 h-3 text-indigo-400" /> {b}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* Showcase Main Hero inside mockup */}
-              <div className="my-8 text-left space-y-4 max-w-xl z-10">
-                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-white/10 text-zinc-200 border border-white/10 inline-block">
-                  Projet Végétal &amp; Digital
-                </span>
-                <h3 className="text-2xl md:text-4xl font-extrabold tracking-tight text-white leading-tight">
-                  {activeItem.title}
-                </h3>
-                <p className="text-zinc-300 text-xs md:text-sm leading-relaxed">
-                  Design épuré, animations fluides Framer Motion et architecture Next.js optimisée pour un taux de conversion maximal.
-                </p>
-
-                {/* Feature Tags */}
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {activeItem.features.map((feat) => (
-                    <span
-                      key={feat}
-                      className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-white/10 text-white border border-white/10 flex items-center gap-1"
-                    >
-                      <Layers className="w-3 h-3 text-indigo-400" /> {feat}
-                    </span>
-                  ))}
+                <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/10 z-10 text-xs text-zinc-400">
+                  <span>Votre métier n&rsquo;est pas listé ? On le fait aussi.</span>
+                  <BookCallButton variant="ghostDark" size="sm" showIcon={false}>
+                    En parler
+                  </BookCallButton>
                 </div>
-              </div>
-
-              {/* Showcase Bottom Bar */}
-              <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/10 z-10 text-xs text-zinc-400">
-                <span>⚡ Chargement instantané en 0.4s</span>
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  className="flex items-center gap-1.5 text-white font-semibold hover:text-indigo-300 transition-colors"
-                >
-                  Obtenir un site similaire <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </motion.div>
       </div>
-
-      <BookingModal isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
     </section>
   );
 }

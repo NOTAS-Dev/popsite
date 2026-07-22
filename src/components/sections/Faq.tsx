@@ -1,51 +1,52 @@
 'use client';
 
 import * as React from 'react';
-import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
+import { Reveal } from '@/components/Reveal';
+import { BookCallButton } from '@/components/CtaButtons';
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
 } from '@/components/ui/accordion';
-import { HelpCircle, Sparkles, MessageCircle } from 'lucide-react';
+import { Sparkles, MessageCircle } from 'lucide-react';
 
-interface FaqItem {
-  question: string;
-  answer: string;
-}
-
-const faqItems: FaqItem[] = [
+const faqItems = [
   {
-    question: 'Combien de temps faut-il pour créer et livrer mon site web ?',
+    question: 'Vous travaillez avec quels métiers ?',
     answer:
-      'Pour une Landing Page ou un site vitrine épuré, le délai moyen est de 5 à 7 jours ouvrés. Pour un site sur-mesure ou e-commerce complexe avec CMS, comptez 10 à 14 jours. Nous définissons un calendrier strict dès le premier appel.',
+      'Tous. Artisans, commerçants, restaurateurs, professions libérales, santé, associations, entreprises de services. Les besoins sont les mêmes partout : être trouvé, inspirer confiance, être contacté. On adapte le reste.',
   },
   {
-    question: 'Quelle est la différence entre Popsite et une agence web traditionnelle ?',
+    question: 'Je n’y connais rien en informatique.',
     answer:
-      'Les agences traditionnelles utilisent souvent des templates WordPress lourds avec des dizaines de plugins obsolètes. Chez Popsite, nous développons sur-mesure avec Next.js 15 et Tailwind CSS. Résultat : un site 10x plus rapide (Score 100/100 Lighthouse), un SEO naturel exceptionnel et aucun bogue d’extension.',
+      'C’est le cas de la plupart de nos clients. Rien à installer, rien à configurer. On vous pose des questions simples, on gère la technique, on vous montre le résultat.',
   },
   {
-    question: 'Comment fonctionnent les révisions illimitées ?',
+    question: 'Combien de temps ça prend ?',
     answer:
-      'Votre satisfaction est notre priorité absolue. Nous vous présentons d’abord la maquette interactive. Vous pouvez demander autant de retouches (couleurs, typographies, disposition, contenus) que souhaité jusqu’à ce que le rendu final corresponde parfaitement à vos attentes.',
+      'Ça dépend du projet : un site vitrine n’a rien à voir avec une boutique en ligne. On vous donne un délai ferme après le premier appel.',
   },
   {
-    question: 'Mon site sera-t-il optimisé pour le référencement Google (SEO) ?',
+    question: 'Je peux avoir une fonctionnalité particulière ?',
     answer:
-      'Oui, absolument. Nous intégrons les meilleures pratiques SEO : balises HTML5 sémantiques, meta-données OpenGraph, génération automatique du sitemap.xml, compression d’images Next/Image et temps de chargement instantané indispensables pour le classement Google.',
+      'Presque toujours oui : rendez-vous, paiement, espace client, galerie, devis, réservation, newsletter, multilingue. Décrivez-nous l’idée. Et si ce n’est pas réalisable, on vous le dit franchement.',
   },
   {
-    question: 'Qui est propriétaire du nom de domaine et du code du site ?',
+    question: 'Mon site sera-t-il visible sur Google ?',
     answer:
-      'Vous êtes propriétaire à 100% du nom de domaine, des contenus et du code source. À la livraison finale, nous vous transférons la totalité du dépôt GitHub et la propriété du compte d’hébergement Vercel/Netlify sans aucun cadenas.',
+      'On met en place les bonnes fondations : structure propre, balises renseignées, chargement rapide, référencement local. Le résultat dépend aussi de votre concurrence et prend du temps — personne de sérieux ne vous garantira la première place.',
   },
   {
-    question: 'Proposez-vous une maintenance après le lancement ?',
+    question: 'Qui est propriétaire du site ?',
     answer:
-      'Chaque pack inclut 14 à 30 jours de support garanti post-lancement offert. Pour des évolutions régulières ou l’ajout de nouvelles pages au fil du temps, nous proposons des forfaits d’accompagnement flexibles sans engagement.',
+      'Vous. Domaine, contenus et site vous appartiennent. Aucun abonnement obligatoire pour continuer à l’utiliser.',
+  },
+  {
+    question: 'Et après la mise en ligne ?',
+    answer:
+      'On reste joignables. Correction, horaires, photos, nouvelle page : vous nous écrivez directement.',
   },
 ];
 
@@ -53,26 +54,18 @@ export function Faq() {
   return (
     <section id="faq" className="py-24 bg-[#FCFCFD] relative">
       <div className="max-w-4xl mx-auto px-4 md:px-6 space-y-12">
-        {/* Header */}
-        <div className="text-center space-y-4">
-          <Badge variant="purple" icon={<Sparkles className="w-3.5 h-3.5" />}>
-            FOIRE AUX QUESTIONS
-          </Badge>
+        <Reveal className="text-center space-y-4">
+          <div className="flex justify-center">
+            <Badge variant="purple" icon={<Sparkles className="w-3.5 h-3.5" />}>
+              QUESTIONS FRÉQUENTES
+            </Badge>
+          </div>
           <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-zinc-950">
-            Toutes vos réponses en toute transparence.
+            Les questions qu&rsquo;on nous pose le plus.
           </h2>
-          <p className="text-zinc-600 text-base">
-            Vous avez une question spécifique qui ne figure pas ici ? Discutons-en directement.
-          </p>
-        </div>
+        </Reveal>
 
-        {/* Accordion Component */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
+        <Reveal>
           <Accordion type="single" collapsible className="w-full">
             {faqItems.map((item, index) => (
               <AccordionItem key={index} value={`item-${index}`}>
@@ -81,18 +74,24 @@ export function Faq() {
               </AccordionItem>
             ))}
           </Accordion>
-        </motion.div>
+        </Reveal>
 
-        {/* Contact Support Pill */}
-        <div className="text-center pt-4">
-          <a
-            href="mailto:contact@popsite.fr"
-            className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-600 hover:text-indigo-600 bg-white border border-zinc-200/80 px-5 py-2.5 rounded-full shadow-2xs hover:shadow-md transition-all"
-          >
-            <MessageCircle className="w-4 h-4 text-indigo-500" />
-            Une autre question ? Écrivez-nous à contact@popsite.fr
-          </a>
-        </div>
+        <Reveal>
+          <div className="glass-card rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row items-center justify-between gap-5 text-center sm:text-left">
+            <div className="flex items-center gap-4">
+              <div className="hidden sm:flex w-11 h-11 shrink-0 rounded-2xl bg-indigo-50 border border-indigo-100 items-center justify-center text-indigo-600">
+                <MessageCircle className="w-5 h-5" />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-zinc-950">
+                  Votre question n&rsquo;est pas là ?
+                </p>
+                <p className="text-xs text-zinc-500 mt-0.5">Posez-la au téléphone.</p>
+              </div>
+            </div>
+            <BookCallButton size="sm" className="w-full sm:w-auto shrink-0" />
+          </div>
+        </Reveal>
       </div>
     </section>
   );
