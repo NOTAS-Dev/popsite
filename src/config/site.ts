@@ -19,7 +19,9 @@ export const DEVIS_LINK =
 
 export const siteConfig = {
   name: 'Popsite',
-  url: 'https://popsite.fr',
+  // Toujours la version « www » : popsite.fr redirige en 308 vers www.popsite.fr.
+  // Doit rester identique au canonical de layout.tsx et au sitemap.
+  url: 'https://www.popsite.fr',
   email: 'contact@popsite.fr',
   location: 'France',
   description:

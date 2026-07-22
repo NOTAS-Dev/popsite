@@ -23,17 +23,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.popsite.fr"),
   title,
   description,
-  keywords: [
-    "Popsite",
-    "création site internet",
-    "site web sur-mesure",
-    "site vitrine",
-    "site web artisan",
-    "site web commerçant",
-    "site web restaurant",
-    "référencement SEO local",
-    "agence web France",
-  ],
+  // Pas de `keywords` : Google ignore cette balise depuis 2009.
   authors: [{ name: "Popsite", url: "https://www.popsite.fr" }],
   creator: "Popsite",
   publisher: "Popsite",

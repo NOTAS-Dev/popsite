@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { BookCallButton } from '@/components/CtaButtons';
@@ -32,12 +33,13 @@ export function Navbar() {
         >
           <div className="flex items-center justify-between">
             {/* Logo minimalist prestige */}
-            <a
-              href="#"
+            <Link
+              href="/"
+              aria-label="Popsite — accueil"
               className="flex items-center gap-2 group transition-transform duration-300 hover:scale-[1.01]"
             >
               <Logo variant="light" size={24} />
-            </a>
+            </Link>
 
             {/* Nav links */}
             <nav className="hidden md:flex items-center gap-6">

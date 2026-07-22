@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Reveal } from '@/components/Reveal';
 import { BookCallButton, DevisButton } from '@/components/CtaButtons';
@@ -60,9 +61,9 @@ export function FooterCTA() {
         {/* Footer links */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pt-8 border-t border-white/10 text-xs text-zinc-400">
           <div className="space-y-4">
-            <a href="#" className="flex items-center gap-2">
+            <Link href="/" aria-label="Popsite — accueil" className="flex items-center gap-2">
               <Logo variant="dark" size={28} />
-            </a>
+            </Link>
             <p className="leading-relaxed">Création de sites web sur-mesure pour tous les métiers.</p>
             <span className="flex items-center gap-1.5 text-zinc-400">
               <MapPin className="w-3.5 h-3.5 text-zinc-400" /> {siteConfig.location}
