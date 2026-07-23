@@ -5,6 +5,7 @@ import { Hero } from '@/components/sections/Hero';
 import { MetiersMarquee } from '@/components/sections/MetiersMarquee';
 import { Services } from '@/components/sections/Services';
 import { Portfolio } from '@/components/sections/Portfolio';
+import { ExpertisesMetier } from '@/components/sections/ExpertisesMetier';
 import { BentoGrid } from '@/components/sections/BentoGrid';
 import { Faq } from '@/components/sections/Faq';
 import { FooterCTA } from '@/components/sections/FooterCTA';
@@ -28,6 +29,9 @@ export default function Home() {
 
       {/* 2. Ce qu'on sait faire */}
       <Services />
+
+      {/* Expertises métier : maillage interne vers les pages /creation-site-<métier> */}
+      <ExpertisesMetier />
 
       {/* 3. Nos réalisations (4 emplacements image) */}
       <Portfolio />

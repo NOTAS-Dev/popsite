@@ -28,10 +28,17 @@ export const siteConfig = {
     'Popsite crée des sites web sur-mesure pour tous les corps de métier. Site vitrine, réservation en ligne, paiement, SEO : dites-nous ce que vous voulez, on le construit.',
 } as const;
 
-/** Liens de navigation (navbar + footer). */
+/**
+ * Liens de navigation (navbar + footer).
+ * Préfixés par « / » et non par un simple « # » : depuis une page métier, une
+ * ancre nue (#services) ne mène nulle part puisque la section n'existe que sur
+ * l'accueil. « /#services » ramène à l'accueil au bon endroit depuis n'importe
+ * quelle page.
+ */
 export const navLinks = [
-  { name: 'Services', href: '#services' },
-  { name: 'Réalisations', href: '#realisations' },
-  { name: 'Pourquoi Popsite', href: '#pourquoi-nous' },
-  { name: 'Questions', href: '#faq' },
+  { name: 'Services', href: '/#services' },
+  { name: 'Métiers', href: '/#metiers' },
+  { name: 'Réalisations', href: '/#realisations' },
+  { name: 'Pourquoi Popsite', href: '/#pourquoi-nous' },
+  { name: 'Questions', href: '/#faq' },
 ] as const;
