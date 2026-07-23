@@ -10,12 +10,11 @@ export const CAL_LINK = 'kenzo-fernandez-hh1hgw/15min';
 export const CAL_URL = `https://cal.com/${CAL_LINK}`;
 
 /**
- * Lien du CTA « Demander un devis ».
- * TODO : remplacer par le formulaire / lien externe définitif.
- * Pour l'instant : mailto pré-rempli en français.
+ * Lien du CTA « Demander un devis » : la page /devis (formulaire structuré).
+ * Remplace l'ancien mailto brut, pour disposer d'une page indexable et d'un
+ * formulaire qui récupère les informations utiles dès le premier contact.
  */
-export const DEVIS_LINK =
-  'mailto:contact@popsite.fr?subject=Demande%20de%20devis%20—%20Popsite&body=Bonjour%2C%0A%0AJe%20souhaite%20un%20devis%20pour%20mon%20site%20web.%0A%0AMon%20activit%C3%A9%20%3A%0AMon%20besoin%20%3A%0AMon%20d%C3%A9lai%20souhait%C3%A9%20%3A%0A%0AMerci%20%21';
+export const DEVIS_LINK = '/devis';
 
 export const siteConfig = {
   name: 'Popsite',

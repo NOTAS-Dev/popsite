@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import Link from 'next/link';
 import { Calendar, FileText, ArrowUpRight } from 'lucide-react';
 import { getCalApi } from '@calcom/embed-react';
 import { cn } from '@/lib/utils';
@@ -90,17 +91,32 @@ export function DevisButton({
   className?: string;
   showIcon?: boolean;
 }) {
-  const isExternal = DEVIS_LINK.startsWith('http');
+  const classes = cn(base, styles[variant], sizes[size], 'group', className);
+  const contenu = (
+    <>
+      {showIcon && <FileText className="w-4 h-4 shrink-0" />}
+      {children}
+      <ArrowUpRight className="w-4 h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+    </>
+  );
 
+  // Lien interne (/devis) : next/link. Lien externe (http) ou mailto : <a>.
+  if (DEVIS_LINK.startsWith('/')) {
+    return (
+      <Link href={DEVIS_LINK} className={classes}>
+        {contenu}
+      </Link>
+    );
+  }
+
+  const isExternal = DEVIS_LINK.startsWith('http');
   return (
     <a
       href={DEVIS_LINK}
       {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-      className={cn(base, styles[variant], sizes[size], 'group', className)}
+      className={classes}
     >
-      {showIcon && <FileText className="w-4 h-4 shrink-0" />}
-      {children}
-      <ArrowUpRight className="w-4 h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      {contenu}
     </a>
   );
 }
